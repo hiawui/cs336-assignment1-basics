@@ -1,6 +1,8 @@
 import collections
 import regex as re
 
+PRE_TOKENIZER_PAT = r"""'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
+
 class BPE_Trainer:
     def __init__(self, vocab_size, corpus_path, special_tokens=None):
         self.vocab_size = vocab_size
@@ -25,10 +27,9 @@ class BPE_Trainer:
         else:
             parts = [corpus]
 
-        PAT = r"""'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
         segment_freqs = collections.defaultdict(int)
         for part in parts:
-            for match in re.finditer(PAT, part):
+            for match in re.finditer(PRE_TOKENIZER_PAT, part):
                 segment = tuple(bytes([b]) for b in match.group(0).encode("utf-8"))
                 segment_freqs[segment] += 1
         return segment_freqs

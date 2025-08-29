@@ -71,4 +71,3 @@ def test_ref_bpe():
 
         print(f"pair: {bytes_to_str(pair[0])} {bytes_to_str(pair[1])}, freq: {freq}")
 
-
