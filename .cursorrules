@@ -1,0 +1,33 @@
+### Project rules: Python with uv only
+
+- **Python execution**: Always run Python via uv.
+  - Use `uv run python <script.py>` or `uv run -m <module>`.
+  - Do not use `python`, `pipenv run`, `poetry run`, or raw `venv` activations.
+
+- **Package management**: Use uv for all dependency operations.
+  - Add packages: `uv add <package>` (dev deps: `uv add --dev <package>`)
+  - Remove packages: `uv remove <package>`
+  - Sync from lock: `uv sync`
+  - Update/lock: `uv lock` (CI: prefer `uv sync --frozen`)
+  - Never use `pip`, `pip3`, `pip-tools`, `poetry`, or `conda` in this project.
+
+- **Testing**: Run tests through uv.
+  - Default test command: `uv run pytest`
+  - Examples:
+    - File: `uv run pytest tests/test_model.py`
+    - Keyword: `uv run pytest -k "pattern"`
+    - Quiet: `uv run pytest -q`
+
+- **Scripts and tooling**:
+  - Invoke Python CLIs via `uv run <tool>`.
+  - Examples: `uv run ruff check .`, `uv run mypy .`, `uv run black .`.
+
+- **Command generation (assistant)**:
+  - Assume uv is available and initialized (uses `pyproject.toml` and `uv.lock`).
+  - Prefer non-interactive flags when applicable.
+
+- **Prohibited**:
+  - Creating or activating virtual environments manually.
+  - Using system Python directly for repo tasks.
+
+These rules apply to all development, CI, and testing workflows in this repository.
