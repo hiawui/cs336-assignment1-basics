@@ -30,4 +30,19 @@
   - Creating or activating virtual environments manually.
   - Using system Python directly for repo tasks.
 
+### PyTorch restrictions
+
+- **PyTorch module restrictions**: Do not use the following PyTorch modules:
+  - `torch.nn` (except for container classes and Parameter)
+  - `torch.nn.functional`
+  - `torch.optim` (except for the Optimizer base class)
+
+- **Allowed PyTorch components**:
+  - `torch.nn.Parameter` - for creating learnable parameters
+  - `torch.nn` container classes: `Module`, `ModuleList`, `Sequential`, etc.
+  - `torch.optim.Optimizer` - the base optimizer class
+  - All other PyTorch modules (`torch`, `torch.tensor`, etc.)
+
+- **Rationale**: This restriction encourages manual implementation of neural network components and optimization algorithms for educational purposes.
+
 These rules apply to all development, CI, and testing workflows in this repository.
