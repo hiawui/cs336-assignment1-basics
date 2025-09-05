@@ -602,5 +602,5 @@ def run_train_bpe(
     bpe_trainer = BPE_Trainer(vocab_size, input_path, special_tokens)
     bpe_trainer.train()
     vocab = {i: v for i, v in enumerate(bpe_trainer.vocab)}
-    merges = [(t1, t2) for t1, t2 in bpe_trainer.merges]
+    merges = [(pair.first, pair.second) for pair in bpe_trainer.merges]
     return vocab, merges
